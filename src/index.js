@@ -1,5 +1,5 @@
 
-import dotenv from 'dotenv'
+import * as dotenv from 'dotenv'
 dotenv.config()
 
 import { StaticAuthProvider } from '@twurple/auth';
