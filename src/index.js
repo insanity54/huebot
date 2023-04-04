@@ -66,7 +66,7 @@ const chatClient = new ChatClient({
 });
 
 async function main() {
-  console.log(`  connecting to chat...`)
+  console.log(`  connecting to ${process.env.SCRANCLAN_CHANNEL}...`)
   await chatClient.connect()
   console.log(`  connected.`)
 
@@ -75,7 +75,9 @@ async function main() {
     logChatter({username: msg.userInfo.userName, color: msg.userInfo.color, last_seen: new Date()})
   })
 
-  fastify.listen(process.env.PORT || 5000)
+  fastify.listen({
+    port: process.env.PORT || 5000
+  })
 }
 
 main()
