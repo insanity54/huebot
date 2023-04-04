@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <title>SakuraBlossomTradingPost</title>
+<head>
+  <script type="module" src="./main.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/mvp.css@1.12/mvp.css"> 
+</head>
+<body>
+
+
+<h1>Scran Clan</h1>
+
+<div x-data="error">
+  <ul>
+  <template x-for="e in $store.error.errors">
+    <li x-text="e"></li>
+  </template>
+  </ul>
+</div>
+
+
+<div x-data="auth">
+  <p x-show="$store.auth.isAuthenticated">Logged in.</p>
+  <p x-show="!$store.auth.isAuthenticated">
+    Logged out.
+    <a href="https://sakuraboost3.sbtp.xyz/api/connect/twitch">Login with Twitch</a>
+  </p>
+</div>
+
+<div x-data="offer" x-show="$store.auth.isAuthenticated">
+  <button class="button" x-on:click="getUnclaimed" x-show="$store.auth.isAuthenticated">Get offer</button>
+
+  <div x-show="card">
+    <p><span x-text="card.SKU"></span></p>
+    <div x-text="formatMoney(price_cents)"></div>
+    <img x-bind:src="card.image_front" />
+
+    <button class="button" x-on:click="markAsUnwanted">Mark as unwanted</button>
+    <button class="button" x-on:click="markAsBought">Mark as bought</button>
+
+    <label for="owner">Owner ID</label>
+    <input id="owner" x-model="owner" type="number">
+  </div>
+
+</div>
+
+
+</body>
+</html>
+
