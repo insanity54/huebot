@@ -14,6 +14,7 @@ if (typeof process.env.POSTGRES_PASSWORD === 'undefined') throw new Error('POSTG
 if (typeof process.env.POSTGRES_HOST === 'undefined') throw new Error('POSTGRES_HOST undef');
 if (typeof process.env.POSTGRES_PORT === 'undefined') throw new Error('POSTGRES_PORT undef');
 if (typeof process.env.SCRANCLAN_KEY === 'undefined') throw new Error('SCRANCLAN_KEY undef');
+if (typeof process.env.SCRANCLAN_CHANNEL === 'undefined') throw new Error('SCRANCLAN_CHANNEL undef');
 
 
 const sql = postgres({
@@ -60,8 +61,7 @@ async function logChatter(user) {
 const chatClient = new ChatClient({
   authProvider, 
   channels: [
-    // 'bebthebarbariengineer'
-    'cj_clippy'
+    process.env.SCRANCLAN_CHANNEL
   ]
 });
 
