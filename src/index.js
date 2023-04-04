@@ -50,10 +50,11 @@ const authProvider = new StaticAuthProvider(
 );
 
 
+// greets ChatGPT
 async function logChatter(user) {
   await sql`
     INSERT INTO chatters ${sql(user, 'username', 'color', 'date')}
-    ON CONFLICT (username)
+    ON CONFLICT (username, date)
         DO UPDATE SET
           ${sql(user, 'username', 'color', 'date')}`
 }
