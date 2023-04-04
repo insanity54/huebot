@@ -76,9 +76,19 @@ async function main() {
     logChatter({username: msg.userInfo.userName, color: msg.userInfo.color, date: new Date()})
   })
 
-  fastify.listen({
-    port: process.env.PORT || 5000
-  })
+const start = async () => {
+  try {
+    await fastify.listen({ port: process.env.PORT || 3000 })
+
+    const addr = fastify.server.address()
+    console.log(`listening on ${addr.address}:${addr.port}`)
+
+  } catch (err) {
+    fastify.log.error(err)
+    process.exit(1)
+  }
+}
+start()
 }
 
 main()
