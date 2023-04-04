@@ -52,10 +52,10 @@ const authProvider = new StaticAuthProvider(
 
 async function logChatter(user) {
   await sql`
-    INSERT INTO chatters ${sql(user, 'username', 'color', 'last_seen')}
+    INSERT INTO chatters ${sql(user, 'username', 'color', 'date')}
     ON CONFLICT (username)
         DO UPDATE SET
-          ${sql(user, 'username', 'color', 'last_seen')}`
+          ${sql(user, 'username', 'color', 'date')}`
 }
 
 const chatClient = new ChatClient({
@@ -72,7 +72,7 @@ async function main() {
 
   chatClient.onMessage((channel, user, text, msg) => {
     console.log(`name:${msg.userInfo.userName}, color:${msg.userInfo.color}`)
-    logChatter({username: msg.userInfo.userName, color: msg.userInfo.color, last_seen: new Date()})
+    logChatter({username: msg.userInfo.userName, color: msg.userInfo.color, date: new Date()})
   })
 
   fastify.listen({
