@@ -78,7 +78,10 @@ async function main() {
 
 const start = async () => {
   try {
-    await fastify.listen({ port: process.env.PORT || 3000 })
+    await fastify.listen({ 
+      host: '0.0.0.0',
+      port: process.env.PORT || 3000 
+    })
 
     const addr = fastify.server.address()
     console.log(`listening on ${addr.address}:${addr.port}`)
