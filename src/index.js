@@ -52,11 +52,18 @@ const authProvider = new StaticAuthProvider(
 
 // greets ChatGPT
 async function logChatter(user) {
+
+  // in chatters table, each username gets one sample per day. subsequent messages in different colors update their sample of the day
   await sql`
     INSERT INTO chatters ${sql(user, 'username', 'color', 'date')}
     ON CONFLICT (username, date)
         DO UPDATE SET
           ${sql(user, 'username', 'color', 'date')}`
+
+  // in samples table, each message is a sample.
+  await sql`
+    INSERT INTO samples ${sql(user, 'username', 'color', 'date')}
+  `
 }
 
 const chatClient = new ChatClient({
