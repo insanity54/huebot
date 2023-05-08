@@ -31,13 +31,21 @@ const fastify = Fastify({})
 
 fastify.get('/api/colors.json', async (request, reply) => {
   reply.type('application/json')
-  console.log(request.query)
   if (request.query.key !== process.env.SCRANCLAN_KEY) {
     reply.status(403).send({error: 'unauthorized'})
   } else {
     const data = await sql`SELECT * FROM chatters WHERE date >= current_date - interval '90 days'`;
-    console.log(data)
     reply.send(JSON.stringify({ colors: data }))
+  }
+})
+
+fastify.get('/api/color-samples.json', async (request, reply) => {
+  reply.type('application/json')
+  if (request.query.key !== process.env.SCRANCLAN_KEY) {
+    reply.status(403).send({error: 'unauthorized'})
+  } else {
+    const data = await sql`SELECT * FROM samples WHERE date >= current_date - interval '90 days'`;
+    reply.send(JSON.stringify({ colorSamples: data }))
   }
 })
 
